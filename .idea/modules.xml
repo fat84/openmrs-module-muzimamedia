@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/muzimamedia.iml" filepath="$PROJECT_DIR$/muzimamedia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/api/muzimamedia-api.iml" filepath="$PROJECT_DIR$/api/muzimamedia-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/omod/muzimamedia-omod.iml" filepath="$PROJECT_DIR$/omod/muzimamedia-omod.iml" />
+    </modules>
+  </component>
+</project>
+

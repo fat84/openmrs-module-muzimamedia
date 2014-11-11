@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface MuzimaMediaDAO {
     public List<MuzimaMedia> getAll();
+    public void saveMedia(MuzimaMedia media);
 }

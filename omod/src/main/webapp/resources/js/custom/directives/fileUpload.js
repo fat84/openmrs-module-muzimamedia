@@ -1,5 +1,5 @@
 //TODO: Write angular e2e tests for testing this
-muzimaformsModule.directive("fileUpload", function () {
+muzimamediaModule.directive("fileUpload", function () {
     return {
         restrict: "E",
         templateUrl: "../../moduleResources/muzimaforms/partials/directives/fileUpload.html",

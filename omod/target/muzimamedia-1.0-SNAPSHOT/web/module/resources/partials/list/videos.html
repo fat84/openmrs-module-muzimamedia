@@ -1,1 +1,48 @@
-you are in videos
+<div ng-controller="videoCtrl" ng-init="init()" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-lg-8">
+            <h3>Muzima Videos</h3>
+        </div>
+        <div class="col-lg-4">
+            <form>
+                <input type="text" class="form-control" ng-model="searchQuery" placeholder="Search"
+                       style="padding-left: 5px; padding-right: 5px">
+            </form>
+        </div>
+    </div>
+
+    <div ng-repeat="muzimaVideo in muzimaVideos">
+        <div class="row">
+            <div class="col-lg-12 panel">
+                <div class="panel-heading">
+                    <span>
+                        <a title="Delete Video"
+                           ng-click="remove(muzimaVideo)">
+                            <i class="icon-remove"></i>
+                        </a>
+                    </span>
+                    <span>
+                        <a title="Preview Video">
+                            <i class="icon-eye-open"></i>
+                        </a>
+                    </span>
+                    <span>
+                        <a title="Add Tags">
+                            <i class="icon-tags"></i>
+                        </a>
+                    </span>
+                    <span class="form-heading content_wrap">
+                        <strong>{{muzimaVideo.Title}}</strong>
+                    </span>
+                </div>
+                <div>
+                    <p><small>{{muzimaVideo.Description}}</small></p>
+                </div>
+                <div>
+                    <p><small>{{muzimaVideo.version}}</small></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

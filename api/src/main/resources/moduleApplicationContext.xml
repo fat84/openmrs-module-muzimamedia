@@ -19,5 +19,33 @@
 
 	<!-- Add here beans related to the API context -->
 
-	
+    <bean id="muzimaMediaDAO" class="org.openmrs.module.muzimamedia.api.db.hibernate.impl.MuzimaMediaDAOImpl">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.muzimamedia.api.MuzimaMediaService</value>
+                <bean
+                        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+                    <property name="transactionManager">
+                        <ref bean="transactionManager"/>
+                    </property>
+                    <property name="target">
+                        <bean class="org.openmrs.module.muzimamedia.api.impl.MuzimaMediaServiceImpl">
+                            <constructor-arg name="dao" ref="muzimaMediaDAO"/>
+                        </bean>
+                    </property>
+                    <property name="preInterceptors">
+                        <ref bean="serviceInterceptors"/>
+                    </property>
+                    <property name="transactionAttributeSource">
+                        <ref bean="transactionAttributeSource"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
 </beans>

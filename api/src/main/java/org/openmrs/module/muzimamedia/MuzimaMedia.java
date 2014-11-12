@@ -3,9 +3,6 @@ package org.openmrs.module.muzimamedia;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.openmrs.BaseOpenmrsData;
 
-/**
- * Created by vikas on 15/10/14.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MuzimaMedia extends BaseOpenmrsData{
     private Integer id;
@@ -14,8 +11,25 @@ public class MuzimaMedia extends BaseOpenmrsData{
     private String version;
     private String url;
 
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result;
+        return result;
+    }
+
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MuzimaMedia muzimaMedia = (MuzimaMedia) o;
+        return this.getId().equals(muzimaMedia.getId());
     }
 
     public void setId(Integer id) {

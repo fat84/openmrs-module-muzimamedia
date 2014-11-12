@@ -1,5 +1,5 @@
 'use strict';
-function ImportCtrl($scope, $window, FileUploadService)
+function ImportCtrl($scope, $window, $location, FileUploadService)
 {
      $scope.upload = function(file, title, version, description){
      console.log("Uploading " + title + " " +version +" "+ description + " "+ file);

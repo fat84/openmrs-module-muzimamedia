@@ -28,4 +28,18 @@ muzimamediaModule.factory('FileUploadService', function ($http) {
             })
         }
     };
+
 });
+
+muzimamediaModule.factory('MediaService', function ($http) {
+
+    var all = function () {
+        return $http.get('video/getAllMedia.form', {cache: false});
+    };
+
+    return {
+        all: all
+        }
+});
+
+

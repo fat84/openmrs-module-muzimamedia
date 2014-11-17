@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class MuzimaMediaController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "video/media.form", method = RequestMethod.GET)
-    public List<MuzimaMedia> getMedia(final MultipartHttpServletRequest request) throws Exception {
+    @RequestMapping(value = "video/getAllMedia.form", method = RequestMethod.GET)
+    public List<MuzimaMedia> getMedia(final HttpServletRequest request) throws Exception {
 
         MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
         return muzimaMediaService.getAll();

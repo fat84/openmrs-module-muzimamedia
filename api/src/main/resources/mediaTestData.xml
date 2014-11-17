@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <muzimamedia_media media_id="1" title ="Test Video 1 " version="1.0"  description="Test Video 1 Description" url="" />
+    <muzimamedia_media media_id="2" title ="Test Video 2 " version="1.0"  description="Test Video 2 Description" url="" />
+</dataset>

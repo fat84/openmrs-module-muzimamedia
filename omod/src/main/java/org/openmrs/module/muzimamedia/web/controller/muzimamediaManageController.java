@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping(value = "module/muzimamedia/managemedia.form")
-public class  muzimamediaManageController {
+public class MuzimamediaManageController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 

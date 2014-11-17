@@ -3,6 +3,12 @@ package org.openmrs.module.muzimamedia;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.openmrs.BaseOpenmrsData;
 
+import java.util.UUID;
+
+/**
+ * Created by vikas on 15/10/14.
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MuzimaMedia extends BaseOpenmrsData{
     private Integer id;
@@ -11,11 +17,26 @@ public class MuzimaMedia extends BaseOpenmrsData{
     private String version;
     private String url;
 
+
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result;
         return result;
+    }
+
+
+    public MuzimaMedia(){
+    }
+    public MuzimaMedia(String title, String description, String version, String url){
+
+        if (getUuid()==null) {
+            setUuid(UUID.randomUUID().toString());
+        }
+        this.title = title;
+        this.description = description;
+        this.version = version;
+        this.url = url;
     }
 
     public Integer getId() {

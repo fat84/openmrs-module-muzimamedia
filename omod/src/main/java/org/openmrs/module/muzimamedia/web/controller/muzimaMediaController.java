@@ -25,9 +25,8 @@ public class MuzimaMediaController {
                                final @RequestParam String description,
                                final @RequestParam String version) throws Exception {
 
-        MultipartFile file = request.getFile("file");
-
-
+        MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
+        muzimaMediaService.uploadVideo(request.getFile("file"),title, description,version);
     }
 
     @ResponseBody

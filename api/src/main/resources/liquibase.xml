@@ -10,7 +10,7 @@
         for a list of supported elements and attributes
     -->
 
-    <changeSet id="muzimamedia_media-2014-11-17-3:56" author="sahajsoft">
+    <changeSet id="muzimamedia_media-2014-11-17-4:00" author="sahajsoft">
         <comment>
             table for media file
         </comment>
@@ -18,6 +18,7 @@
             <column name="media_id" type="int">
                 <constraints nullable="true"/>
             </column>
+            <column name="uuid" type="char(38)" />
             <column name="title" type="text"></column>
             <column name="description" type="text"></column>
             <column name="version" type="text"></column>
@@ -31,6 +32,55 @@
             <column name="date_retired" type="date"/>
             <column name="retire_reason" type="text"/>
         </createTable>
+        <addPrimaryKey columnNames="media_id" constraintName="media_id_pk" tableName="muzimamedia_media"/>
+        <addUniqueConstraint constraintName="unique-muzimamedia-media-uuid" tableName="muzimamedia_media" columnNames="uuid"/>
+    </changeSet>
+
+    <changeSet id="muzimamedia_tag-2014-11-17-4:00" author="sahajsoft">
+        <comment>
+            Table for tags
+        </comment>
+        <createTable tableName="muzimamedia_tag">
+            <column name="tag_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="char(38)" />
+            <column name="name" type="varchar(255)"/>
+            <column name="creator" valueNumeric="1" type="int"/>
+            <column name="date_created" valueDate="2007-05-04" type="date"/>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="date"/>
+            <column name="retired" valueBoolean="false" type="boolean"/>
+            <column name="retired_by" type="int"/>
+            <column name="date_retired" type="date"/>
+            <column name="retire_reason" type="text"/>
+        </createTable>
+        <addUniqueConstraint constraintName="unique-muzimamedia_tag-name" tableName="muzimamedia_tag" columnNames="name"/>
+        <addUniqueConstraint constraintName="unique-muzimamedia_tag-uuid" tableName="muzimamedia_tag" columnNames="uuid"/>
+    </changeSet>
+
+    <changeSet id="muzimamedia_tag_mapping-2014-11-17-4:00" author="sahajsoft">
+        <comment>
+            Table for tags to form mapping
+        </comment>
+        <createTable tableName="muzimamedia_tag_mapping">
+            <column name="media_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator" valueNumeric="1" type="int"/>
+            <column name="date_created" valueDate="2007-05-04" type="date"/>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="date"/>
+            <column name="retired" valueBoolean="false" type="boolean"/>
+            <column name="retired_by" type="int"/>
+            <column name="date_retired" type="date"/>
+            <column name="retire_reason" type="text"/>
+        </createTable>
+        <addPrimaryKey columnNames="media_id,tag_id" constraintName="muzimamedia_tag_mapping_media_id_pk"
+                       tableName="muzimamedia_tag_mapping"/>
     </changeSet>
 
 </databaseChangeLog>

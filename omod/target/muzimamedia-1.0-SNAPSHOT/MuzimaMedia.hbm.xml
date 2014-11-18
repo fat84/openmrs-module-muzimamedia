@@ -13,5 +13,9 @@
         <property name="description" type="java.lang.String"/>
         <property name="version" type="java.lang.String"/>
         <property name="url" type="java.lang.String"/>
+        <set name="tags" table="muzimamedia_tag_mapping" cascade="all-delete-orphan">
+            <key column="media_id" not-null="true"/>
+            <many-to-many column="tag_id" class="MuzimaMediaTag"/>
+        </set>
     </class>
 </hibernate-mapping>

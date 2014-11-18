@@ -34,9 +34,11 @@ muzimamediaModule.factory('FileUploadService', function ($http) {
 muzimamediaModule.factory('MediaService', function ($http) {
 
     var all = function () {
-        return $http.get('video/getAllMedia.form', {cache: false});
+        return $http.get('../../ws/rest/v1/muzimamedia/media', {cache: false});
     };
-
+    var saveTag = function (media) {
+           return $http.post('video/tag.form', media);
+        };
     return {
         all: all
         }

@@ -14,7 +14,7 @@ function ImportCtrl($scope, $window, $location, FileUploadService)
              });
 
      };
-     var getUploadURL = function () {
+     $scope.getUploadURL = function () {
          return 'video/upload.form';
      };
 }

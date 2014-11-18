@@ -28,8 +28,13 @@
 	
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-				
+        MuzimaMedia.hbm.xml
+        MuzimaMediaTag.hbm.xml
 	</mappingFiles>
+
+    <require_modules>
+        <require_module version="2.0">org.openmrs.module.webservices.rest</require_module>
+    </require_modules>
 
 	<!-- Internationalization -->
 	<!-- All message codes should start with muzimamedia. -->

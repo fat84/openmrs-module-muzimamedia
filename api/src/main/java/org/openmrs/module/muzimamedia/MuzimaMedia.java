@@ -3,6 +3,8 @@ package org.openmrs.module.muzimamedia;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.openmrs.BaseOpenmrsData;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -16,12 +18,13 @@ public class MuzimaMedia extends BaseOpenmrsData{
     private String description;
     private String version;
     private String url;
-
+    private Set<MuzimaMediaTag> tags = new HashSet<MuzimaMediaTag>();
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result;
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
         return result;
     }
 
@@ -48,9 +51,22 @@ public class MuzimaMedia extends BaseOpenmrsData{
 
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         MuzimaMedia muzimaMedia = (MuzimaMedia) o;
+        if (tags != null ? !tags.equals(muzimaMedia.tags) : muzimaMedia.tags != null) return false;
         return this.getId().equals(muzimaMedia.getId());
+    }
+
+    @Override
+    public String toString() {
+        return "MuzimaMedia{" +
+                "id=" + id +
+                ", uuid=" + getUuid() +
+                ", title='" + getTitle() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", version='" + getVersion() + '\'' +
+                ", url='" + getUrl() + '\'' +
+                ", tags=" + tags +
+                '}';
     }
 
     public void setId(Integer id) {
@@ -87,5 +103,13 @@ public class MuzimaMedia extends BaseOpenmrsData{
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Set<MuzimaMediaTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<MuzimaMediaTag> tags) {
+        this.tags = tags;
     }
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaBuilder;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaService;
+import org.openmrs.module.muzimamedia.api.MuzimaMediaTagBuilder;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaDAO;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
@@ -45,6 +46,7 @@ public class MuzimaMediaServiceImplTest extends BaseModuleContextSensitiveTest {
                 .withVersion("1.0")
                 .withDescription("Test Video 2 Description")
                 .withURL("")
+                .with(MuzimaMediaTagBuilder.tag().withId(123).withName("Video2Tag"))
                 .instance());
 
         when(muzimaMediaDAO.getAll()).thenReturn(muzimaForms);

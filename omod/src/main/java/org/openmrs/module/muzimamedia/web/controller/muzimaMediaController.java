@@ -31,10 +31,9 @@ public class MuzimaMediaController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "video/getAllMedia.form", method = RequestMethod.GET)
-    public List<MuzimaMedia> getMedia(final HttpServletRequest request) throws Exception {
-
+    @RequestMapping(value = "video/tag.form", method = RequestMethod.POST)
+    public void saveTag( final @RequestBody MuzimaMedia media ) throws Exception {
         MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
-        return muzimaMediaService.getAll();
+        muzimaMediaService.saveMedia(media);
     }
 }

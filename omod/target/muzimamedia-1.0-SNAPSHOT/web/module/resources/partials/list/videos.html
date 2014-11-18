@@ -27,21 +27,28 @@
                         </a>
                     </span>
                     <span>
-                        <a title="Add Tags">
+                        <a title="Add Tags" ng-click="editMode = !editMode">
                             <i class="icon-tags"></i>
                         </a>
                     </span>
                     <span class="form-heading content_wrap">
-                        <strong>{{muzimaVideo.Title}}</strong>
+                        <strong>{{muzimaVideo.title}}</strong>
                     </span>
                 </div>
                 <div>
-                    <p><small>{{muzimaVideo.Description}}</small></p>
+                    <p><small>{{muzimaVideo.description}}</small></p>
                 </div>
                 <div>
                     <p><small>{{muzimaVideo.version}}</small></p>
                 </div>
 
+                <div ng-show="editMode">
+                    <form ng-submit="saveTag(muzimaVideo)">
+                        <input name="newTag" ng-model="muzimaVideo.newTag" ng-trim="true" type="text"
+                               class="form-control" placeholder="Add tag"
+                               style="margin-top: 15px; padding-left: 5px; padding-right: 5px">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,10 @@
 package org.openmrs.module.muzimamedia.api;
 
 import org.openmrs.module.muzimamedia.MuzimaMedia;
+import org.openmrs.module.muzimamedia.MuzimaMediaTag;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by shwethathammaiah on 11/11/14.
@@ -12,6 +16,7 @@ public class MuzimaMediaBuilder extends Builder<MuzimaMedia> {
     private String description;
     private String version;
     private String url;
+    private Set<MuzimaMediaTag> tags = new HashSet<MuzimaMediaTag>();
 
     private MuzimaMediaBuilder(){
 
@@ -57,6 +62,11 @@ public class MuzimaMediaBuilder extends Builder<MuzimaMedia> {
 
     public MuzimaMediaBuilder withURL(String url) {
         this.url = url;
+        return this;
+    }
+
+    public MuzimaMediaBuilder with(MuzimaMediaTagBuilder tagBuilder) {
+        this.tags.add(tagBuilder.instance());
         return this;
     }
 

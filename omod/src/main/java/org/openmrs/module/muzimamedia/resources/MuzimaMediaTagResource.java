@@ -15,14 +15,15 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 /**
  * Created by vikas on 17/11/14.
  */
 @Resource(name = RestConstants.VERSION_1 + "/" + MuzimaConstants.MODULE_ID + "/tag",
-        supportedClass = MuzimaMedia.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
-@Handler(supports = MuzimaMedia.class)
+        supportedClass = MuzimaMediaTag.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
+@Handler(supports = MuzimaMediaTag.class)
 public class MuzimaMediaTagResource extends DataDelegatingCrudResource<MuzimaMediaTag> {
 
     @Override
@@ -33,12 +34,12 @@ public class MuzimaMediaTagResource extends DataDelegatingCrudResource<MuzimaMed
 
     @Override
     public MuzimaMediaTag getByUniqueId(String s) {
-        return null;
+        throw new ResourceDoesNotSupportOperationException();
     }
 
     @Override
     protected void delete(MuzimaMediaTag muzimaMediaTag, String s, RequestContext requestContext) throws ResponseException {
-
+        throw new ResourceDoesNotSupportOperationException();
     }
 
     public MuzimaMediaTag newDelegate() {
@@ -46,12 +47,12 @@ public class MuzimaMediaTagResource extends DataDelegatingCrudResource<MuzimaMed
     }
 
     public MuzimaMediaTag save(MuzimaMediaTag muzimaMediaTag) {
-        return null;
+        throw new ResourceDoesNotSupportOperationException();
     }
 
     @Override
     public void purge(MuzimaMediaTag muzimaMediaTag, RequestContext requestContext) throws ResponseException {
-
+        throw new ResourceDoesNotSupportOperationException();
     }
 
     public DelegatingResourceDescription getRepresentationDescription(Representation rep) {

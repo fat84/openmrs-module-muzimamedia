@@ -25,4 +25,9 @@ public interface MuzimaMediaService extends OpenmrsService {
     @Transactional
     MuzimaMedia uploadVideo(MultipartFile videoFile, String title, String Description, String version) throws Exception;
 
+    MuzimaMedia findByUniqueId(String uuid);
+
+    @Transactional
+    MuzimaMedia save(MuzimaMedia media) throws Exception;
+
 }

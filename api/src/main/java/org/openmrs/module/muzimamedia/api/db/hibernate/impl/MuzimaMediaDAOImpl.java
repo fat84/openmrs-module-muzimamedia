@@ -40,4 +40,12 @@ public class MuzimaMediaDAOImpl implements MuzimaMediaDAO {
     private Session session() {
         return factory.getCurrentSession();
     }
+
+    public MuzimaMedia findByUuid(String uuid) {
+        return (MuzimaMedia) session().createQuery("from MuzimaMedia media where media.uuid = '" + uuid + "'").uniqueResult();
+    }
+
+    public void saveForm(MuzimaMedia media) {
+        session().saveOrUpdate(media);
+    }
 }

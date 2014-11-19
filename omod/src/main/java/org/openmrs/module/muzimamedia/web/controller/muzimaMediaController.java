@@ -36,4 +36,12 @@ public class MuzimaMediaController {
         MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
         muzimaMediaService.saveMedia(media);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "video/remove.form", method = RequestMethod.POST)
+    public void removeMedia( final @RequestBody MuzimaMedia media ) throws Exception {
+        MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
+        muzimaMediaService.saveMedia(media);
+    }
+
 }

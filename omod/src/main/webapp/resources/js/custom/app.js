@@ -5,6 +5,7 @@ muzimamediaModule.
         $routeProvider.
             when('/list/videos', {templateUrl: '../../moduleResources/muzimamedia/partials/list/videos.html'}).
             when('/import/video', {templateUrl: '../../moduleResources/muzimamedia/partials/import/video.html'}).
+            when('/list/view/:uuid', {templateUrl: '../../moduleResources/muzimamedia/partials/list/view.html'}).
             otherwise({redirectTo: '/list/videos'});
     }]);
 
@@ -39,9 +40,26 @@ muzimamediaModule.factory('MediaService', function ($http) {
     var saveTag = function (media) {
            return $http.post('video/tag.form', media);
         };
+    var get = function (id) {
+            return $http.get('../../ws/rest/v1/muzimamedia/media/' + id + "?v=custom:(id,uuid,title,description,version,url,tags)");
+        };
+     var remove = function (media) {
+                return $http.post('video/remove.form', media);
+     };
+
     return {
-        all: all
+        all: all,
+        saveTag : saveTag,
+        get:get,
+        remove:remove
         }
+});
+
+muzimamediaModule.factory('TagService', function ($http) {
+    var all = function () {
+        return $http.get('../../ws/rest/v1/muzimamedia/tag');
+    };
+    return {all: all};
 });
 
 

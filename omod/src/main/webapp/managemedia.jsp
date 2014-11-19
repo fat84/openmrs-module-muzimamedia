@@ -20,7 +20,7 @@
 <openmrs:htmlInclude file="/moduleResources/muzimamedia/js/custom/controllers/ImportController.js"/>
 <openmrs:htmlInclude file="/moduleResources/muzimamedia/js/custom/controllers/XFormsController.js"/>
 <openmrs:htmlInclude file="/moduleResources/muzimamedia/js/custom/directives/fileUpload.js"/>
-
+<openmrs:htmlInclude file="/moduleResources/muzimamedia/js/custom/controllers/viewController.js"/>
 <div ng-app="muzimamedia">
     <div class="navbar navbar-inverse navbar-custom">
             <div>

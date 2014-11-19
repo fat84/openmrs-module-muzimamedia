@@ -12,4 +12,6 @@ public interface MuzimaMediaDAO {
     public List<MuzimaMedia> getAll();
     public void saveMedia(MuzimaMedia media);
     public MuzimaMedia findById(Integer id);
+    public MuzimaMedia findByUuid(String uuid);
+    void saveForm(MuzimaMedia form);
 }

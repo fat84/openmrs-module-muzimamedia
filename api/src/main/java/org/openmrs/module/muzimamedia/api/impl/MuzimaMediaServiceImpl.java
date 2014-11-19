@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements MuzimaMediaService{
 
-    private String mediaPath = "./";
+    private String mediaPath = "./tomcat/webapps/openmrs-standalone/WEB-INF/view/module/muzimamedia/resources/media/";
     private MuzimaMediaDAO dao;
 
     public MuzimaMediaServiceImpl(MuzimaMediaDAO dao){
@@ -43,8 +43,8 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
 
     public MuzimaMedia uploadVideo(MultipartFile videoFile, String title, String description, String version) throws Exception {
 
-        String fileName =  getFileName();
-        String filePath = this.mediaPath +fileName + getFileExtension(videoFile);
+        String fileName =  getFileName()+ getFileExtension(videoFile);
+        String filePath = this.mediaPath +fileName;
         MuzimaMedia muzimaMedia = new MuzimaMedia(title,description,version, fileName);
         videoFile.transferTo(new File(filePath));
         return saveMedia(muzimaMedia);
@@ -58,5 +58,14 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
     {
        return  UUID.randomUUID().toString();
 
+    }
+
+    public MuzimaMedia findByUniqueId(String uuid) {
+        return dao.findByUuid(uuid);
+    }
+
+    public MuzimaMedia save(MuzimaMedia media) throws Exception {
+        dao.saveForm(media);
+        return media;
     }
 }

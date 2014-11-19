@@ -22,7 +22,7 @@
                         </a>
                     </span>
                     <span>
-                        <a title="Preview Video">
+                        <a title="Preview Video" ng-click = "viewMedia(muzimaVideo)">
                             <i class="icon-eye-open"></i>
                         </a>
                     </span>
@@ -41,7 +41,16 @@
                 <div>
                     <p><small>{{muzimaVideo.version}}</small></p>
                 </div>
-
+                <div>
+                    <span class="tag" ng-repeat="tag in muzimaVideo.tags">
+                        <span class="label form-tag" ng-style="tagStyle(tag.id)">
+                            <span>{{tag.name}} </span>
+                            <span ng-click="removeTag(muzimaVideo, tag)">
+                                <i class="icon-remove"></i>
+                            </span>
+                        </span>
+                    </span>
+                </div>
                 <div ng-show="editMode">
                     <form ng-submit="saveTag(muzimaVideo)">
                         <input name="newTag" ng-model="muzimaVideo.newTag" ng-trim="true" type="text"

@@ -17,6 +17,7 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
+import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 import java.util.List;
@@ -39,13 +40,20 @@ public class MuzimaMediaResource extends DataDelegatingCrudResource<MuzimaMedia>
     }
 
     @Override
-    public MuzimaMedia getByUniqueId(String s) {
-        return null;
+    public MuzimaMedia getByUniqueId(String uuid) {
+        MuzimaMediaService service = Context.getService(MuzimaMediaService.class);
+        return service.findByUniqueId(uuid);
+    }
+
+    @Override
+    public Object retrieve(String uuid, RequestContext context) throws ResponseException {
+        MuzimaMediaService service = Context.getService(MuzimaMediaService.class);
+        return asRepresentation(service.findByUniqueId(uuid), context.getRepresentation());
     }
 
     @Override
     protected void delete(MuzimaMedia media, String s, RequestContext requestContext) throws ResponseException {
-
+        throw new ResourceDoesNotSupportOperationException();
     }
 
     public MuzimaMedia newDelegate() {
@@ -54,12 +62,19 @@ public class MuzimaMediaResource extends DataDelegatingCrudResource<MuzimaMedia>
 
 
     public MuzimaMedia save(MuzimaMedia media) {
-        return null;
+        MuzimaMediaService service = Context.getService(MuzimaMediaService.class);
+        try {
+            return service.save(media);
+        } catch (Exception e) {
+            log.error(e);
+        }
+        return media;
+
     }
 
     @Override
     public void purge(MuzimaMedia media, RequestContext requestContext) throws ResponseException {
-
+        throw new ResourceDoesNotSupportOperationException();
     }
 
     public DelegatingResourceDescription getRepresentationDescription(Representation rep) {

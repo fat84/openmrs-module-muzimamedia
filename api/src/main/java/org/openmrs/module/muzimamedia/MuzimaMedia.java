@@ -36,6 +36,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
         if (getUuid()==null) {
             setUuid(UUID.randomUUID().toString());
         }
+
         this.title = title;
         this.description = description;
         this.version = version;
@@ -65,6 +66,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
                 ", description='" + getDescription() + '\'' +
                 ", version='" + getVersion() + '\'' +
                 ", url='" + getUrl() + '\'' +
+                ", voided='" + getVoided() + '\'' +
                 ", tags=" + tags +
                 '}';
     }

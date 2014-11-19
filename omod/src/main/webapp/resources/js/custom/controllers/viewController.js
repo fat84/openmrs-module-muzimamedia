@@ -22,8 +22,6 @@ function viewCtrl($scope, $window, $routeParams, MediaService){
         source.setAttribute('src', url);
         HTMLvideo.appendChild(source);
         HTMLvideo.load();
-        HTMLvideo.play();
-
     };
     var tagColor = function (tagId) {
         var tag = $scope.tagColorMap[tagId];

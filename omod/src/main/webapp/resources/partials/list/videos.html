@@ -32,7 +32,8 @@
                         </a>
                     </span>
                     <span class="form-heading content_wrap">
-                        <strong>{{muzimaVideo.title}}</strong>
+                       <strong ng-hide = "muzimaVideo.voided">{{muzimaVideo.title}}</strong>
+                        <strong ng-show = "muzimaVideo.voided"><strike>{{muzimaVideo.title}}</strike></strong>
                     </span>
                 </div>
                 <div>

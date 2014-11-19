@@ -88,6 +88,7 @@ public class MuzimaMediaResource extends DataDelegatingCrudResource<MuzimaMedia>
             description.addProperty("description");
             description.addProperty("version");
             description.addProperty("url");
+            description.addProperty("voided");
             description.addProperty("tags", new CustomRepresentation("(id,uuid,name)"));
             description.addSelfLink();
         }

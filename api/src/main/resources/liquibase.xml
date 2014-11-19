@@ -10,7 +10,7 @@
         for a list of supported elements and attributes
     -->
 
-    <changeSet id="muzimamedia_media-2014-11-17-4:00" author="sahajsoft">
+    <changeSet id="muzimamedia_media-2014-11-18-4:00" author="sahajsoft">
         <comment>
             table for media file
         </comment>
@@ -33,10 +33,10 @@
             <column name="retire_reason" type="text"/>
         </createTable>
         <addPrimaryKey columnNames="media_id" constraintName="media_id_pk" tableName="muzimamedia_media"/>
-        <addUniqueConstraint constraintName="unique-muzimamedia-media-uuid" tableName="muzimamedia_media" columnNames="uuid"/>
+        <addUniqueConstraint constraintName="unique-muzimamedia-uuid" tableName="muzimamedia_media" columnNames="uuid"/>
     </changeSet>
 
-    <changeSet id="muzimamedia_tag-2014-11-17-4:00" author="sahajsoft">
+    <changeSet id="muzimamedia_tag-2014-11-18-4:00" author="sahajsoft">
         <comment>
             Table for tags
         </comment>
@@ -59,7 +59,7 @@
         <addUniqueConstraint constraintName="unique-muzimamedia_tag-uuid" tableName="muzimamedia_tag" columnNames="uuid"/>
     </changeSet>
 
-    <changeSet id="muzimamedia_tag_mapping-2014-11-17-4:00" author="sahajsoft">
+    <changeSet id="muzimamedia_tag_mapping-2014-11-18-4:00" author="sahajsoft">
         <comment>
             Table for tags to form mapping
         </comment>

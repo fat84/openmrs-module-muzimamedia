@@ -27,7 +27,7 @@
                 </div>
                 <div class="well-small">
                     <button ng-click="cancelUpload()" class="btn btn-danger">Cancel</button>
-                    <button type="submit" class="btn btn-success">Upload</button>
+                    <button ng-disabled="!hasFile()" type="submit" class="btn btn-success">Upload</button>
                 </div>
             </form>
 

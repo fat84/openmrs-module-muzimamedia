@@ -3,10 +3,13 @@ package org.openmrs.module.muzimamedia.api.impl;
 import org.dom4j.DocumentException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
+import org.openmrs.module.muzimamedia.MuzimaMediaConstants;
 import org.openmrs.module.muzimamedia.MuzimaMediaType;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaService;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaDAO;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaTypeDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,7 +23,6 @@ import java.util.UnknownFormatConversionException;
  */
 public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements MuzimaMediaService{
 
-    private String mediaPath = "./tomcat/webapps/openmrs-standalone/WEB-INF/view/module/muzimamedia/resources/media/";
     private MuzimaMediaDAO dao;
     private MuzimaMediaTypeDAO typeDAO;
 
@@ -48,20 +50,19 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
 
     public MuzimaMedia uploadVideo(MultipartFile videoFile, String title, String description, String version) throws Exception {
         if(!mediaWithThisVersionAndTitleExists(title,version)) {
-            String fileName = getFileName() + getFileExtension(videoFile);
-            String filePath = this.mediaPath + fileName;
+            String fileName =  getFileName()+ getFileExtension(videoFile);
+            String filePath = MuzimaMediaConstants.MEDIA_PATH +fileName;
             int mediaTypeId = getMediaType(videoFile);
 
-            MuzimaMedia muzimaMedia = new MuzimaMedia(title, description, version, fileName, mediaTypeId);
+            MuzimaMedia muzimaMedia = new MuzimaMedia(title,description,version, fileName, mediaTypeId);
             videoFile.transferTo(new File(filePath));
             return saveMedia(muzimaMedia);
         }
             throw new DocumentException("Media with this title and version already exists!");
     }
-
     private boolean mediaWithThisVersionAndTitleExists(String title, String version) {
-        MuzimaMedia muzimaMedia = dao.findByVersionAndTitle(title,version);
-        if(muzimaMedia != null)
+        MuzimaMedia muzimaMedia = dao.findByVersionAndTitle(title, version);
+        if (muzimaMedia != null)
             return true;
         else
             return false;

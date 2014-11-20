@@ -83,4 +83,41 @@
                        tableName="muzimamedia_tag_mapping"/>
     </changeSet>
 
+    <changeSet id="Add_muzimamedia_Type-2014-11-18-4:00" author="sahajsoft">
+        <comment>
+            adding new columns to muzimamedia_media
+        </comment>
+        <addColumn tableName="muzimamedia_media">
+            <column name="muzimaMediaType_id" type="int"></column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="muzimamedia_type-2014-11-18-4:00" author="sahajsoft">
+        <comment>
+            Table for Media Type
+        </comment>
+        <createTable tableName="muzimamedia_type">
+            <column name="type_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert_muzimamedia_type-2014-11-18-4:00" author="sahajsoft">
+        <insert tableName="muzimamedia_type">
+            <column name="type_id" value="1"/>
+            <column name="name" value="video"/>
+        </insert>
+        <insert tableName="muzimamedia_type">
+            <column name="type_id" value="2"/>
+            <column name="name" value="image"/>
+        </insert>
+        <insert tableName="muzimamedia_type">
+            <column name="type_id" value="3"/>
+            <column name="name" value="audio"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

@@ -6,10 +6,13 @@
                         <strong>{{media.title}}</strong>
                     </span>
             </div>
-            <div>
+            <div ng-show = "media.muzimaMediaType == 1">
                 <video id = "HTMLvideo" width="50%" height="100%" controls>
                     Your browser does not support the video tag.
                 </video>
+            </div>
+            <div ng-show = "media.muzimaMediaType == 2">
+                <img class = "imagePreview" id= "HTMLimage" src="xyz"/>
             </div>
             <hr/>
             <div>

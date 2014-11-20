@@ -19,6 +19,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
     private String version;
     private String url;
     private Set<MuzimaMediaTag> tags = new HashSet<MuzimaMediaTag>();
+    private Integer muzimaMediaType;
 
     @Override
     public int hashCode() {
@@ -31,7 +32,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
 
     public MuzimaMedia(){
     }
-    public MuzimaMedia(String title, String description, String version, String url){
+    public MuzimaMedia(String title, String description, String version, String url , int muzimaMediaType){
 
         if (getUuid()==null) {
             setUuid(UUID.randomUUID().toString());
@@ -41,6 +42,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
         this.description = description;
         this.version = version;
         this.url = url;
+        this.muzimaMediaType = muzimaMediaType;
     }
 
     public Integer getId() {
@@ -68,6 +70,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
                 ", url='" + getUrl() + '\'' +
                 ", voided='" + getVoided() + '\'' +
                 ", tags=" + tags +
+                ", muzimaMediaType=" + muzimaMediaType +
                 '}';
     }
 
@@ -113,5 +116,13 @@ public class MuzimaMedia extends BaseOpenmrsData{
 
     public void setTags(Set<MuzimaMediaTag> tags) {
         this.tags = tags;
+    }
+
+    public Integer getMuzimaMediaType() {
+        return muzimaMediaType;
+    }
+
+    public void setMuzimaMediaType(Integer muzimaMediaType) {
+        this.muzimaMediaType = muzimaMediaType;
     }
 }

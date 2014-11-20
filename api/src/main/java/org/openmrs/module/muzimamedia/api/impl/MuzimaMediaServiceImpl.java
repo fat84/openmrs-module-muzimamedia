@@ -3,15 +3,19 @@ package org.openmrs.module.muzimamedia.api.impl;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
+import org.openmrs.module.muzimamedia.MuzimaMediaType;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaService;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaDAO;
+import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaTypeDAO;
 import org.springframework.web.multipart.MultipartFile;
+import sun.org.mozilla.javascript.internal.Undefined;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
 import java.util.List;
+import java.util.UnknownFormatConversionException;
 
 /**
  * Created by vikas on 15/10/14.
@@ -20,9 +24,12 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
 
     private String mediaPath = "./tomcat/webapps/openmrs-standalone/WEB-INF/view/module/muzimamedia/resources/media/";
     private MuzimaMediaDAO dao;
+    private MuzimaMediaTypeDAO typeDAO;
 
-    public MuzimaMediaServiceImpl(MuzimaMediaDAO dao){
+    public MuzimaMediaServiceImpl(MuzimaMediaDAO dao, MuzimaMediaTypeDAO typeDAO){
+
         this.dao = dao;
+        this.typeDAO = typeDAO;
     }
 
     @Override
@@ -45,7 +52,9 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
 
         String fileName =  getFileName()+ getFileExtension(videoFile);
         String filePath = this.mediaPath +fileName;
-        MuzimaMedia muzimaMedia = new MuzimaMedia(title,description,version, fileName);
+        int mediaTypeId = getMediaType(videoFile);
+
+        MuzimaMedia muzimaMedia = new MuzimaMedia(title,description,version, fileName, mediaTypeId);
         videoFile.transferTo(new File(filePath));
         return saveMedia(muzimaMedia);
     }
@@ -57,7 +66,20 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
     public String getFileName()
     {
        return  UUID.randomUUID().toString();
+    }
 
+    public int getMediaType(MultipartFile file){
+
+        MuzimaMediaType mediaType = new MuzimaMediaType();
+        if (file.getContentType().toUpperCase().contains(MuzimaMediaType.Type.VIDEO.toString()))
+            mediaType = typeDAO.findByName(MuzimaMediaType.Type.VIDEO.toString().toLowerCase());
+        else if (file.getContentType().toUpperCase().contains(MuzimaMediaType.Type.IMAGE.toString()))
+            mediaType = typeDAO.findByName(MuzimaMediaType.Type.IMAGE.toString().toLowerCase());
+        else if (file.getContentType().toUpperCase().contains(MuzimaMediaType.Type.AUDIO.toString()))
+            mediaType = typeDAO.findByName(MuzimaMediaType.Type.AUDIO.toString().toLowerCase());
+        else throw new UnknownFormatConversionException("this media file is not valid");
+
+        return mediaType.getId();
     }
 
     public MuzimaMedia findByUniqueId(String uuid) {

@@ -41,7 +41,7 @@ muzimamediaModule.factory('MediaService', function ($http) {
            return $http.post('video/tag.form', media);
         };
     var get = function (id) {
-            return $http.get('../../ws/rest/v1/muzimamedia/media/' + id + "?v=custom:(id,uuid,title,description,version,url,voided,tags)");
+            return $http.get('../../ws/rest/v1/muzimamedia/media/' + id + "?v=custom:(id,uuid,title,description,version,url,voided,muzimaMediaType,tags)");
         };
      var remove = function (media) {
                 return $http.post('video/remove.form', media);

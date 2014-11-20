@@ -8,7 +8,9 @@
     <bean id="muzimaMediaDAO" class="org.openmrs.module.muzimamedia.api.db.hibernate.impl.MuzimaMediaDAOImpl">
         <constructor-arg ref="sessionFactory"/>
     </bean>
-
+    <bean id="muzimaMediaTypeDAO" class="org.openmrs.module.muzimamedia.api.db.hibernate.impl.MuzimaMediaTypeDAOImpl">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
@@ -21,6 +23,7 @@
                     <property name="target">
                         <bean class="org.openmrs.module.muzimamedia.api.impl.MuzimaMediaServiceImpl">
                             <constructor-arg name="dao" ref="muzimaMediaDAO"/>
+                            <constructor-arg name="typeDAO" ref="muzimaMediaTypeDAO"/>
                         </bean>
                     </property>
                     <property name="preInterceptors">
@@ -62,4 +65,5 @@
             </list>
         </property>
     </bean>
+
 </beans>

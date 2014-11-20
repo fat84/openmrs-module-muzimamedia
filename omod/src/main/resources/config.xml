@@ -30,6 +30,7 @@
 	<mappingFiles>
         MuzimaMedia.hbm.xml
         MuzimaMediaTag.hbm.xml
+        MuzimaMediaType.hbm.xml
 	</mappingFiles>
 
     <require_modules>

@@ -19,9 +19,9 @@
                 <constraints nullable="true"/>
             </column>
             <column name="uuid" type="char(38)" />
-            <column name="title" type="text"></column>
+            <column name="title" type="varchar(255)"></column>
             <column name="description" type="text"></column>
-            <column name="version" type="text"></column>
+            <column name="version" type="varchar(255)"></column>
             <column name="url" type="text"></column>
             <column name="creator" valueNumeric="1" type="int"/>
             <column name="date_created" valueDate="2007-05-04" type="date"/>
@@ -119,5 +119,14 @@
             <column name="name" value="audio"/>
         </insert>
     </changeSet>
+
+    <changeSet id="insert_muzimamedia_media-2014-11-19-4:00" author="sahajsoft">
+        <addUniqueConstraint
+        columnNames="title, version"
+        constraintName="unique_constraint_title_version_muzimamedia_media"
+        tableName="muzimamedia_media"/>
+    </changeSet>
+
+
 
 </databaseChangeLog>

@@ -1,6 +1,6 @@
 package org.openmrs.module.muzimamedia.api.impl;
 
-import org.openmrs.api.context.Context;
+import org.dom4j.DocumentException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
 import org.openmrs.module.muzimamedia.MuzimaMediaType;
@@ -8,10 +8,8 @@ import org.openmrs.module.muzimamedia.api.MuzimaMediaService;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaDAO;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaTypeDAO;
 import org.springframework.web.multipart.MultipartFile;
-import sun.org.mozilla.javascript.internal.Undefined;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 import java.util.List;
@@ -49,14 +47,24 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
     }
 
     public MuzimaMedia uploadVideo(MultipartFile videoFile, String title, String description, String version) throws Exception {
+        if(!mediaWithThisVersionAndTitleExists(title,version)) {
+            String fileName = getFileName() + getFileExtension(videoFile);
+            String filePath = this.mediaPath + fileName;
+            int mediaTypeId = getMediaType(videoFile);
 
-        String fileName =  getFileName()+ getFileExtension(videoFile);
-        String filePath = this.mediaPath +fileName;
-        int mediaTypeId = getMediaType(videoFile);
+            MuzimaMedia muzimaMedia = new MuzimaMedia(title, description, version, fileName, mediaTypeId);
+            videoFile.transferTo(new File(filePath));
+            return saveMedia(muzimaMedia);
+        }
+            throw new DocumentException("Media with this title and version already exists!");
+    }
 
-        MuzimaMedia muzimaMedia = new MuzimaMedia(title,description,version, fileName, mediaTypeId);
-        videoFile.transferTo(new File(filePath));
-        return saveMedia(muzimaMedia);
+    private boolean mediaWithThisVersionAndTitleExists(String title, String version) {
+        MuzimaMedia muzimaMedia = dao.findByVersionAndTitle(title,version);
+        if(muzimaMedia != null)
+            return true;
+        else
+            return false;
     }
 
     public String getFileExtension(MultipartFile file){

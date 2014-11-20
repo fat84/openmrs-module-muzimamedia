@@ -3,7 +3,6 @@ package org.openmrs.module.muzimamedia.api.db.hibernate.impl;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaDAO;
 
@@ -47,5 +46,10 @@ public class MuzimaMediaDAOImpl implements MuzimaMediaDAO {
 
     public void saveForm(MuzimaMedia media) {
         session().saveOrUpdate(media);
+    }
+
+    @Override
+    public MuzimaMedia findByVersionAndTitle(String title, String version) {
+        return (MuzimaMedia) session().createQuery("from MuzimaMedia media where title = '" + title + "'" + "and version = '" + version + "'").uniqueResult();
     }
 }

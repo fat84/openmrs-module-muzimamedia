@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.lang.model.type.UnknownTypeException;
 import java.io.File;
 import java.util.UUID;
 
@@ -77,7 +78,7 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
        return  UUID.randomUUID().toString();
     }
 
-    public int getMediaType(MultipartFile file){
+    public int getMediaType(MultipartFile file) throws Exception {
 
         MuzimaMediaType mediaType = new MuzimaMediaType();
         if (file.getContentType().toUpperCase().contains(MuzimaMediaType.Type.VIDEO.toString()))
@@ -86,7 +87,7 @@ public class MuzimaMediaServiceImpl extends BaseOpenmrsService implements Muzima
             mediaType = typeDAO.findByName(MuzimaMediaType.Type.IMAGE.toString().toLowerCase());
         else if (file.getContentType().toUpperCase().contains(MuzimaMediaType.Type.AUDIO.toString()))
             mediaType = typeDAO.findByName(MuzimaMediaType.Type.AUDIO.toString().toLowerCase());
-        else throw new UnknownFormatConversionException("this media file is not valid");
+        else throw new Exception("this media file is not valid");
 
         return mediaType.getId();
     }

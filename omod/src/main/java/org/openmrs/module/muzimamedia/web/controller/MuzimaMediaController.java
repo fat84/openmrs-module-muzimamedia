@@ -3,6 +3,8 @@ package org.openmrs.module.muzimamedia.web.controller;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,13 +23,20 @@ public class MuzimaMediaController {
 
     @ResponseBody
     @RequestMapping(value = "video/upload.form", method = RequestMethod.POST)
-    public void uploadMedia(final MultipartHttpServletRequest request,
+    public ResponseEntity<String> uploadMedia(final MultipartHttpServletRequest request,
                                final @RequestParam String title,
                                final @RequestParam String description,
                                final @RequestParam String version) throws Exception {
+        try {
+            MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
+            muzimaMediaService.uploadVideo(request.getFile("file"),title, description,version);
+            return new ResponseEntity<String>("File uploaded", HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
 
-        MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
-        muzimaMediaService.uploadVideo(request.getFile("file"),title, description,version);
     }
 
     @ResponseBody

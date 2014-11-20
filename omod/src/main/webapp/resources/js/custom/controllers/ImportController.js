@@ -9,8 +9,8 @@ function ImportCtrl($scope, $window, $location, FileUploadService)
                  params:{ title: title, description: description || "", version: version }
              }).success(function () {
                  $location.path("#/list/videos");
-             }).error(function () {
-                 alert("Internal Error");
+             }).error(function (errorMessage) {
+                 alert(errorMessage);
              });
 
      };
@@ -19,6 +19,9 @@ function ImportCtrl($scope, $window, $location, FileUploadService)
      };
      $scope.hasFile = function () {
              return ($scope.file) ? true : false;
-         };
+     };
+     $scope.cancel = function () {
+         if ($scope.clearFile) $scope.clearFile();
+     };
 }
 

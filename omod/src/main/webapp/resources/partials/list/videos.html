@@ -1,7 +1,7 @@
 <div ng-controller="videoCtrl" ng-init="init()" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col-lg-8">
-            <h3>Muzima Videos</h3>
+            <h3>Muzima Media</h3>
         </div>
         <div class="col-lg-4">
             <form>
@@ -37,10 +37,10 @@
                     </span>
                 </div>
                 <div>
-                    <p><small>{{muzimaVideo.description}}</small></p>
+                    <p><small><b>Description : </b>{{muzimaVideo.description}}</small></p>
                 </div>
                 <div>
-                    <p><small>{{muzimaVideo.version}}</small></p>
+                    <p><small><b>Version : </b>{{muzimaVideo.version}}</small></p>
                 </div>
                 <div>
                     <span class="tag" ng-repeat="tag in muzimaVideo.tags">

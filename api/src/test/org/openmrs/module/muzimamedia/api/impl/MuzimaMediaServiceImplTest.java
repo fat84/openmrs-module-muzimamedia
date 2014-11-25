@@ -3,10 +3,12 @@ package org.openmrs.module.muzimamedia.api.impl;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
+import org.openmrs.module.muzimamedia.MuzimaMediaConstants;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaBuilder;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaService;
 import org.openmrs.module.muzimamedia.api.MuzimaMediaTagBuilder;
 import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaDAO;
+import org.openmrs.module.muzimamedia.api.db.hibernate.MuzimaMediaTypeDAO;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import java.util.ArrayList;
@@ -23,11 +25,13 @@ public class MuzimaMediaServiceImplTest extends BaseModuleContextSensitiveTest {
 
     private MuzimaMediaService muzimaMediaService;
     private MuzimaMediaDAO muzimaMediaDAO;
+    private MuzimaMediaTypeDAO muzimaMediaTypeDAO;
 
     @Before
     public void setUp() throws Exception {
         muzimaMediaDAO = mock(MuzimaMediaDAO.class);
-        muzimaMediaService = new MuzimaMediaServiceImpl(muzimaMediaDAO);
+        muzimaMediaTypeDAO = mock(MuzimaMediaTypeDAO.class);
+        muzimaMediaService = new MuzimaMediaServiceImpl(muzimaMediaDAO, muzimaMediaTypeDAO);
     }
 
     void setUpDao() {
@@ -71,5 +75,10 @@ public class MuzimaMediaServiceImplTest extends BaseModuleContextSensitiveTest {
         MuzimaMedia muzimaMedia = MuzimaMediaBuilder.muzimaMedia().withId(123).instance();
         muzimaMediaService.saveMedia(muzimaMedia);
         verify(muzimaMediaDAO, times(1)).saveMedia(muzimaMedia);
+    }
+    @Test
+    public void ShouldGetMediaPath() throws Exception {
+        String str = MuzimaMediaConstants.MEDIA_PATH;
+        assertNotNull(str);
     }
 }

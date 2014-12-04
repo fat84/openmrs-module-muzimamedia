@@ -26,10 +26,26 @@ public class MuzimaMediaController {
     public ResponseEntity<String> uploadMedia(final MultipartHttpServletRequest request,
                                final @RequestParam String title,
                                final @RequestParam String description,
-                               final @RequestParam String version) throws Exception {
+                               final @RequestParam String version,
+                               final @RequestParam String tags) throws Exception {
         try {
             MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
-            muzimaMediaService.uploadVideo(request.getFile("file"),title, description,version);
+            muzimaMediaService.uploadVideo(request.getFile("file"),title, description,version,tags);
+            return new ResponseEntity<String>("File uploaded", HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "video/update.form", method = RequestMethod.POST)
+    public ResponseEntity<String> updateMedia(final MultipartHttpServletRequest request,
+                                              final @RequestParam String uuid) throws Exception {
+        try {
+            MuzimaMediaService muzimaMediaService = Context.getService(MuzimaMediaService.class);
+            muzimaMediaService.UpdateVideo(request.getFile("file"), uuid);
             return new ResponseEntity<String>("File uploaded", HttpStatus.OK);
         }
         catch (Exception e)

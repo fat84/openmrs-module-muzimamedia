@@ -1,50 +1,112 @@
-<div ng-controller="viewCtrl" ng-init = "init()">
+<!--new ui-->
+</br>
+<div ng-controller="viewCtrl" ng-init = "init()" class="viewPage">
+<header id="style-guide-header">
+    <div  class="col-lg-8">
+        <h2><i  ng-click ="go('/list/videos')" class="icon-home"></i> Edit Muzima Media</h2>
+    </div>
+</header>
+    </br>
     <div class="row">
-        <div class="col-lg-12 panel">
+        <div class="col-lg-12 panel panel-custom">
             <div class="panel-heading">
                     <span class="form-heading content_wrap">
-                        <strong>{{media.title}}</strong>
+                        <strong class="ng-binding"><i class= " icon-file-alt"></i>{{media.title}}</strong>
                     </span>
-            </div>
-            <div ng-show = "media.muzimaMediaType == 1">
-                <video id = "HTMLvideo" width="50%" height="100%" controls>
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div ng-show = "media.muzimaMediaType == 2">
-                <img class = "imagePreview" id= "HTMLimage" src="xyz"/>
-            </div>
-            <hr/>
-            <div>
-                <p><small><b>Description : </b> {{media.description}}</small></p>
-            </div>
-            <div>
-                <p><small><b>Version : </b>{{media.version}}</small></p>
-            </div>
-            <div>
-                <p><small><b>Retired : </b>{{media.voided}}</small></p>
-            </div>
-            <div>
-                <span class="tag" ng-repeat="tag in media.tags">
-                    <span class="label form-tag" ng-style="tagStyle(tag.id)">
-                        <span>{{tag.name}} </span>
-                        <span ng-click="removeTag(media, tag)">
-                            <i class="icon-remove"></i>
+                    <span class="form-heading content_wrap pull-right">
+                        <small>
+                            <i class = "icon-paper-clip" ng-click="editHtml = !editHtml" title = "Upload Media"></i>
+                        </small>
+                        <span>
+                            <i class="icon-tags" ng-click="editMode = !editMode" title = "Add tags"></i>
+                        </span>
+                        <span>
+                            <i class="icon-save" ng-click = "save(media)" title = "Save"></i>
+                        </span>
+                        <span>
+                            <i class="icon-remove" ng-click = "go('/list/videos')" title = "cancel"></i>
                         </span>
                     </span>
-                </span>
+
             </div>
-            <div ng-show="editMode">
-                <form ng-submit="saveTag(media)">
-                    <input name="newTag" ng-model="media.newTag" ng-trim="true" type="text"
-                           class="form-control" placeholder="Add tag"
-                           style="margin-top: 15px; padding-left: 5px; padding-right: 5px">
-                </form>
+            <div class="col-lg-6">
+                <div>
+                    <div ng-show = "media.muzimaMediaType == 1">
+                        <video id = "HTMLvideo" width="100%" height="100%" controls>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div ng-show = "media.muzimaMediaType == 2">
+                        <img class = "imagePreview" id= "HTMLimage" src="xyz"/>
+                    </div>
+                </div>
             </div>
-            <!--<hr/>-->
-            <!--<div>-->
-                <!--<button type="button" class="btn btn-success">Save</button>-->
-            <!--</div>-->
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="mediaTitle">Title</label>
+                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="mediaTitle" ng-model = "media.title" placeholder="Enter media title" required="true" >
+                </div>
+                <div class="form-group ">
+                    <label for="mediaVersion">Version</label>
+                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="mediaDescription" ng-model = "media.version" placeholder="Enter Description" required="true" >
+                </div>
+                <div class="form-group ">
+                    <label for="mediaDescription">Description</label>
+                    <textarea class="form-control ng-pristine ng-valid" id="mediaVersion" rows="3" placeholder="Enter media version" ng-model = "media.description" text = "This is mockup data" >{{media.description}}</textarea>
+                </div>
+                <div class="checkboxes">
+                    <p>
+                        <label><small class="ng-binding"><b>Retired : </b></small></label>
+                        <input type="checkbox" ng-model = media.voided>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <small class="ng-binding"><b>Tags : </b></small>
+                        <span class="tags" ng-repeat="tag in media.tags">
+                            <span class="label form-tag" ng-style="tagStyle(tag.id)">
+                                <span>{{tag.name}} </span>
+                                <span ng-click="removeTag(media, tag)">
+                                    <i class="icon-remove"></i>
+                                </span>
+                            </span>
+                        </span>
+
+                    </p>
+                </div>
+                <div ng-show="editMode">
+                    <form ng-submit="saveTag(media)" class="ng-pristine ng-valid">
+                        <input name="newTag" ng-model="media.newTag" ng-trim="true" type="text" class="form-control ng-pristine ng-valid" placeholder="Add tag" style="margin-top: 15px; padding-left: 5px; padding-right: 5px">
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
- </div>
+
+    <div  ng-show = "editHtml" >
+        <div class="dialog-background">
+            <div class = "dialog-main">
+                <div class="dialog">
+                    <div class="dialog-header">
+                        <i class="icon-upload-alt" title = "Upload form Template"></i>
+                        <h3> Upload Media</h3>
+                    </div>
+                    <div class="dialog-content">
+                            <div class="panel">
+                                <div class="form-group">
+                                    <file-upload message="Click here to update the form template">
+                                        <input id="fileUploadControl" type="file" name="form[files][]" style="display: none;">
+                                        <div id="fileUploadControlActivator" class="well well-lg">
+                                            Click here to update the Media
+                                        </div>
+                                    </file-upload>
+                                </div>
+                            </div>
+                            <span class="button confirm" ng-click="update(file,media)"> Upload </span>
+                            <span class="button cancel" ng-click = "editHtml = !editHtml"> Cancel </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,7 +32,7 @@ public class MuzimaMedia extends BaseOpenmrsData{
 
     public MuzimaMedia(){
     }
-    public MuzimaMedia(String title, String description, String version, String url , int muzimaMediaType){
+    public MuzimaMedia(String title, String description, String version, String url , int muzimaMediaType, Set<MuzimaMediaTag> tags){
 
         if (getUuid()==null) {
             setUuid(UUID.randomUUID().toString());
@@ -43,6 +43,8 @@ public class MuzimaMedia extends BaseOpenmrsData{
         this.version = version;
         this.url = url;
         this.muzimaMediaType = muzimaMediaType;
+        if(tags.size()>0)
+            this.tags = tags;
     }
 
     public Integer getId() {

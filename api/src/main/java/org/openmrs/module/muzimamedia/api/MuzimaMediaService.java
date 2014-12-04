@@ -1,5 +1,6 @@
 package org.openmrs.module.muzimamedia.api;
 
+import org.dom4j.DocumentException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.muzimamedia.MuzimaMedia;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,11 +24,14 @@ public interface MuzimaMediaService extends OpenmrsService {
     MuzimaMedia findById(Integer id);
 
     @Transactional
-    MuzimaMedia uploadVideo(MultipartFile videoFile, String title, String Description, String version) throws Exception;
+    MuzimaMedia uploadVideo(MultipartFile videoFile, String title, String Description, String version, String tags) throws Exception;
 
     MuzimaMedia findByUniqueId(String uuid);
 
     @Transactional
     MuzimaMedia save(MuzimaMedia media) throws Exception;
+
+    @Transactional
+    MuzimaMedia UpdateVideo(MultipartFile videoFile, String uuid) throws Exception;
 
 }

@@ -1,36 +1,70 @@
-<div ng-controller="ImportCtrl">
-    <div class="row">
-        <div class="col-lg-6 ">
-            <div id="error-alert"></div>
-            <form role="form" ng-submit="upload(file, title, version, description)">
-                <div class="panel">
-                    <div class="form-group">
-                        <label for="videoTitle">Title</label>
-                        <input type="text" class="form-control" id="videoTitle" ng-model="title"
-                               placeholder="Enter Video Title" required="true">
-                    </div>
-                    <div class="form-group">
-                        <label for="version">Version</label>
-                        <input type="text" class="form-control" id="version" ng-model="version"
-                               placeholder="Enter Version" required="true">
-                    </div>
-                    <div class="form-group">
-                        <label for="videoDescription">Description</label>
-                        <textarea class="form-control" id="videoDescription" rows="3"
-                                  placeholder="Enter description" ng-model="description"></textarea>
-                    </div>
-                </div>
-                <div class = "panel">
-                    <div class="form-group">
-                        <file-upload message="Click here to upload Media" />
-                    </div>
-                </div>
-                <div class="well-small">
-                    <button ng-click="cancel()" class="btn btn-danger">Cancel</button>
-                    <button ng-disabled="!hasFile()" type="submit" class="btn btn-success">Upload</button>
-                </div>
-            </form>
 
+<!--new ui-->
+</br>
+<div ng-controller="ImportCtrl" class="viewPage">
+<header id="style-guide-header">
+    <div  class="col-lg-8">
+        <h2><i ng-click = "go('#/list/videos')" class="icon-home"></i> Upload Muzima Media</h2>
+    </div>
+</header>
+</br>
+    <div class="row">
+        <div class="col-lg-12 panel panel-custom">
+            <div class="panel-heading">
+                        <span class="form-heading content_wrap">
+                            <strong class="ng-binding"><i class= " icon-file-alt"></i> Upload new media file </strong>
+                        </span>
+                        <span class="form-heading content_wrap pull-right">
+                            <span>
+                                <i class="icon-save"  ng-disabled="!hasFile()" ng-click="upload(file, title, version, description, mediaTags)" title = "Save Form template"></i>
+                            </span>
+                            <span>
+                                <i class="icon-remove"  ng-click="go('#/list/videos')" title = "cancel"></i>
+                            </span>
+                    </span>
+            </div>
+            <div id="error-alert"></div>
+                <div class="panel create-panel">
+                    <div class="form-group">
+                        <label for="mediaTitle">Title</label>
+                        <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="mediaTitle" ng-model="title" placeholder="Enter media title" required="true" >
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaVersion">Version</label>
+                        <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="mediaVersion" ng-model="version" placeholder="Enter Version" required="true" >
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaDescription">Description</label>
+                        <textarea class="form-control ng-pristine ng-valid" id="mediaDescription" rows="3" placeholder="Enter media Description" ng-model="description" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <p>
+                        <span class="tags" ng-repeat="tag in mediaTags">
+                            <span class="label form-tag" ng-style="tagStyle(tag)">
+                                <span>{{tag}} </span>
+                                <span ng-click="removeTag(tag)">
+                                    <i class="icon-remove"></i>
+                                </span>
+                            </span>
+                        </span>
+                        </p>
+                        <form ng-submit="AddTag(newTag)">
+                            <input name="newTag" ng-model="newTag" ng-trim="true"
+                                   type="text" class="form-control" placeholder="Add tag">
+                        </form>
+                    </div>
+                </div>
+                <div class="panel create-panel">
+                    <div class="form-group">
+                        <file-upload message="Click here to update the form template">
+                            <input id="fileUploadControl" type="file" name="form[files][]" style="display: none;">
+                            <div id="fileUploadControlActivator" class="well well-lg">
+                                Click here to Upload media file
+                            </div>
+                        </file-upload>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

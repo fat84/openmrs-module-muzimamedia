@@ -2,6 +2,8 @@
 function videoCtrl($scope, $window, $location, MediaService, TagService)
 {
     $scope.muzimaVideos;
+    $scope.isToggleOn = false;
+
     $scope.init = function () {
         $scope.editMode = false;
         $scope.tagColorMap = {};
@@ -21,11 +23,7 @@ function videoCtrl($scope, $window, $location, MediaService, TagService)
     var setTags = function (result) {
             $scope.tags = result.data.results;
         };
-    var caseInsensitiveFind = function (tags, newTag) {
-            return _.find(tags, function (tag) {
-                return angular.lowercase(tag.name) === angular.lowercase(newTag);
-            });
-        };
+
 
     var tagColor = function (tagId) {
             var tag = $scope.tagColorMap[tagId];
@@ -41,38 +39,6 @@ function videoCtrl($scope, $window, $location, MediaService, TagService)
     $scope.tagStyle = function (tagId) {
             return  {'background-color': tagColor(tagId)};
         };
-    $scope.saveTag = function (muzimamedia) {
-            if (muzimamedia.newTag == "") return;
-            var newTag = muzimamedia.newTag;
-            var tagToBeAdded = caseInsensitiveFind($scope.tags, newTag) || {"name": newTag};
-            muzimamedia.newTag = "";
-
-            if (caseInsensitiveFind(muzimamedia.tags, tagToBeAdded.name)) return;
-            muzimamedia.tags.push(tagToBeAdded);
-            MediaService.saveTag(muzimamedia)
-            .then(function (result) {
-                 return MediaService.get(muzimamedia.uuid);
-             })
-             .then(function (savedMedia) {
-                 angular.extend(muzimamedia, savedMedia.data);
-                 if (!tagToBeAdded.id)
-                     getTags().then(setTags);
-             });
-        };
-    $scope.removeTag = function (media, tagToRemove) {
-        angular.forEach(media.tags, function (tag, index) {
-            if (tag.name == tagToRemove.name) {
-                media.tags.splice(index, 1);
-                MediaService.saveTag(media)
-                    .then(function (result) {
-                        return MediaService.get(media.uuid);
-                    })
-                    .then(function (savedMedia) {
-                        angular.extend(media, savedMedia.data);
-                    });
-            }
-        });
-    };
     $scope.remove = function (muzimamedia) {
             muzimamedia.voided = true;
             MediaService.remove(muzimamedia)
@@ -80,7 +46,12 @@ function videoCtrl($scope, $window, $location, MediaService, TagService)
         };
     $scope.viewMedia = function(muzimamedia){
         $location.path("/list/view/"+muzimamedia.uuid);
-    }
-
+    };
+    $scope.go = function(path){
+        $location.path(path);
+    };
+    $scope.toggleRetired = function(){
+            $scope.isToggleOn = !$scope.isToggleOn;
+        };
 }
 

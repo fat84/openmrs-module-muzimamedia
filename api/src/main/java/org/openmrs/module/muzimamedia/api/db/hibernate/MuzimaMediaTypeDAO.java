@@ -10,4 +10,5 @@ import java.util.List;
 public interface MuzimaMediaTypeDAO {
     List<MuzimaMediaType> getAll();
     public MuzimaMediaType findByName(String name);
+    public MuzimaMediaType findById(Integer id);
 }

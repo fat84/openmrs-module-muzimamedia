@@ -15,4 +15,7 @@ public interface MuzimaMediaTypeService extends OpenmrsService {
 
     @Transactional
     public MuzimaMediaType add(String name);
+
+    @Transactional
+    public MuzimaMediaType findById(Integer id);
 }

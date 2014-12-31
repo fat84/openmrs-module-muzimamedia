@@ -62,4 +62,11 @@ muzimamediaModule.factory('TagService', function ($http) {
     return {all: all};
 });
 
+muzimamediaModule.factory('TypeService', function ($http) {
+    var get = function (id) {
+                return $http.get('../../ws/rest/v1/muzimamedia/type/' + id + "?v=custom:(id,name)");
+            };
+    return {get: get};
+});
+
 

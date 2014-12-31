@@ -1,8 +1,9 @@
 'use strict';
-function videoCtrl($scope, $window, $location, MediaService, TagService)
+function videoCtrl($scope, $window, $location, MediaService, TagService, TypeService)
 {
     $scope.muzimaVideos;
     $scope.isToggleOn = false;
+    $scope.toggleFilter ={'voided':false};
 
     $scope.init = function () {
         $scope.editMode = false;
@@ -23,6 +24,12 @@ function videoCtrl($scope, $window, $location, MediaService, TagService)
     var setTags = function (result) {
             $scope.tags = result.data.results;
         };
+    $scope.getType = function(id){
+        return TypeService.get(id);
+     };
+    $scope.setType = function(result){
+            return result.data.name;
+    };
 
 
     var tagColor = function (tagId) {
@@ -51,7 +58,14 @@ function videoCtrl($scope, $window, $location, MediaService, TagService)
         $location.path(path);
     };
     $scope.toggleRetired = function(){
-            $scope.isToggleOn = !$scope.isToggleOn;
+            if($scope.isToggleOn){
+                $scope.isToggleOn = false;
+                $scope.toggleFilter ={'voided':false};
+            }else{
+                $scope.isToggleOn = true;
+                $scope.toggleFilter ="";
+            }
+
         };
 }
 

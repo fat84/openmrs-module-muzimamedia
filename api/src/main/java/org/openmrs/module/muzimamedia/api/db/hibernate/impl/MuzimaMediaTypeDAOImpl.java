@@ -31,6 +31,11 @@ public class MuzimaMediaTypeDAOImpl implements MuzimaMediaTypeDAO {
         return (MuzimaMediaType) session().createQuery("from MuzimaMediaType type where type.name = '" + name + "'").uniqueResult();
     }
 
+    @Override
+    public MuzimaMediaType findById(Integer id) {
+        return (MuzimaMediaType) session().createQuery("from MuzimaMediaType type where type.id = '" + id + "'").uniqueResult();
+    }
+
     private Session session() {
         return factory.getCurrentSession();
     }
